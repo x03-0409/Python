@@ -3,21 +3,32 @@ def split(string: str, separator: str = " ") -> list:
     Will split the string up into all the values separated by the separator
     (defaults to spaces)
 
-    >>> split("apple#banana#cherry#orange",separator='#')
+    >>> split("apple#banana#cherry#orange", separator="#")
     ['apple', 'banana', 'cherry', 'orange']
+
+    >>> split("apple<>banana<>cherry", separator="<>")
+    ['apple', 'banana', 'cherry']
 
     >>> split("Hello there")
     ['Hello', 'there']
 
-    >>> split("11/22/63",separator = '/')
+    >>> split("11/22/63", separator="/")
     ['11', '22', '63']
 
-    >>> split("12:43:39",separator = ":")
+    >>> split("12:43:39", separator=":")
     ['12', '43', '39']
 
-    >>> split(";abbb;;c;", separator=';')
+    >>> split(";abbb;;c;", separator=";")
     ['', 'abbb', '', 'c', '']
+
+    >>> split("abc", separator="")
+    Traceback (most recent call last):
+        ...
+    ValueError: empty separator
     """
+
+    if separator == "":
+        raise ValueError("empty separator")
 
     split_words = []
 
