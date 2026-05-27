@@ -17,21 +17,41 @@ def split(string: str, separator: str = " ") -> list:
 
     >>> split(";abbb;;c;", separator=';')
     ['', 'abbb', '', 'c', '']
+    
+    >>> split("a,b,c", separator=",")
+    ['a', 'b', 'c']
+    
+    >>> split("hello world foo bar", separator=" ")
+    ['hello', 'world', 'foo', 'bar']
+    
+    >>> split("onetwoonetwothree", separator="two")
+    ['one', 'one', 'three']
+    
+    >>> split("", separator="x")
+    ['']
+    
+    >>> split("aaa", separator="a")
+    ['', '', '', '']
     """
 
     split_words = []
-
-    sep_len = len(separator)
     last_index = 0
-    i = 0
-    while i <= len(string) - sep_len:
-        if string[i : i + sep_len] == separator:
-            split_words.append(string[last_index:i])
-            last_index = i + sep_len
-            i = last_index
-            continue
-        i += 1
+    sep_len = len(separator)
+    
+    if sep_len == 0:
+        return list(string)
+    
+    index = 0
+    while index <= len(string) - sep_len:
+        if string[index:index + sep_len] == separator:
+            split_words.append(string[last_index:index])
+            last_index = index + sep_len
+            index += sep_len
+        else:
+            index += 1
+    
     split_words.append(string[last_index:])
+    
     return split_words
 
 
